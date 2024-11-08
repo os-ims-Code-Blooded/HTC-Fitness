@@ -8,20 +8,9 @@ import ProfileMeetups from './ProfileMeetups.jsx';
 
 const Profile = (props) => {
 
-  useEffect(() => {
-    axios.get('/api/friends')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(`Error on request in profile, requesting friends.`)
-      })
-  }, [])
-
   function removeFriend(id){
     axios.delete(`/api/friends/${id}`)
       .then((response) => {
-        console.log(response)
         props.fetchUser();
       })
       .catch((error) => {
@@ -39,7 +28,7 @@ const Profile = (props) => {
               <BasicProfileInfo user={props.user}/>
             </div>
             <div id="friendsDisplay" style={{display: "flex", maxWidth: 520}}>
-              <ProfileFriends user={props.user} removeFriend={removeFriend}/>
+              <ProfileFriends user={props.user} removeFriend={removeFriend} switchIcon={props.switchIcon}/>
             </div>
           </div>
           :

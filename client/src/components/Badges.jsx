@@ -13,7 +13,7 @@ import { SlFire } from 'react-icons/sl';
 import LinearProgress from '@mui/material/LinearProgress';
 import axios from 'axios';
 
-const Badges = ({ user, fetchUser }) => {
+const Badges = ({ user, fetchUser, switchIcon }) => {
   const { badges, displayBadge } = user;
   const [selectedBadge, setSelectedBadge] = useState(displayBadge || '');
 
@@ -60,19 +60,6 @@ const Badges = ({ user, fetchUser }) => {
       });
   };
   const calculateProgress = (progress, goal) => Math.min((progress / goal) * 100, 100);
-
-  const switchIcon = (achievementName) => {
-    switch (achievementName) {
-      case 'Fitness Master':
-        return (<GiFireDash />);
-      case 'Fitness God':
-        return (<GiFireSilhouette />);
-      case 'Exercise Saver':
-        return (<GiFireFlower />);
-      default:
-        return (<SlFire />);
-    }
-  };
 
   // handle progress reset
   const resetProgress = () => {

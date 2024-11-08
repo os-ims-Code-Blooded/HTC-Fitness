@@ -8,6 +8,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import { GiFireSilhouette, GiFireDash, GiFireFlower } from 'react-icons/gi';
+import { SlFire } from 'react-icons/sl';
 
 const ProfileFriends = (props) => {
 
@@ -20,7 +22,7 @@ const ProfileFriends = (props) => {
             props.user.friends_list.map((friend, index) => (
               <ListItem alignItems="flex-start" key={friend.googleId}>
                 <ListItemAvatar>
-                  <Avatar alt="Remy Sharp"/>
+                  <Avatar alt="Remy Sharp">{props.switchIcon(friend.displayBadge)}</Avatar>
                 </ListItemAvatar>
                 <ListItemText
                   primary={`${friend.nameFirst} ${friend.nameLast}`}

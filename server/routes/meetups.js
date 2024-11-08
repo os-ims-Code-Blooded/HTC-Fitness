@@ -28,7 +28,6 @@ router.post('/', async (req, res) => {
 });
 /// ///////////////////////////////////////////////////////////
 router.put('/delete', async (req, res) => {
-  console.log('REQUEST body and params:', req.body);
 
   Meetups.findByIdAndDelete(req.body)
     .then((data) => {

@@ -13,7 +13,7 @@ const addBadge = async (user, badge) => {
 
     existingUser.badges.push(badge);
     await existingUser.save();
-    console.log('Badge added to user');
+
   } catch (err) {
     console.error('Failed to add badge');
     throw err;

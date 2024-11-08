@@ -9,6 +9,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { GiFireSilhouette, GiFireDash, GiFireFlower } from 'react-icons/gi';
+import { SlFire } from 'react-icons/sl';
 import axios from 'axios';
 
 import NavBar from './NavBar.jsx';
@@ -50,12 +52,26 @@ const App = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [meetups, setMeetups] = useState([])
 
+  const switchIcon = (achievementName) => {
+    switch (achievementName) {
+      case 'Fitness Master':
+        return (<GiFireDash size={50} />);
+      case 'Fitness God':
+        return (<GiFireSilhouette size={50} />);
+      case 'Exercise Saver':
+        return (<GiFireFlower size={50} />);
+      default:
+        return (<SlFire size={50}/>);
+    }
+  };
+
+
   const fetchUser = async () => {
 
     try {
       await axios.get('/api/badges/badgeCheck');
-
       const userData = await axios.get('/me');
+      await axios.patch('/api/friends', {friends_list: userData.data.friends_list})
 
       setUserProfile(userData.data)
     } catch (error) {
@@ -67,11 +83,11 @@ const App = () => {
     // Check if user is authenticated
     const checkAuth = async () => {
       try {
-
+        
         const response = await axios.get('/api/check-auth');
         const meetupResponse = await axios.get('/api/meetups');
         setIsAuthenticated(response.data.isAuthenticated);
-
+        
         setMeetups(meetupResponse.data)
         // Fetch user profile if authenticated
         if (response.data.isAuthenticated) {
@@ -90,13 +106,11 @@ const App = () => {
   }, []);
 
 
-
-
   const fetchRandomExercises = async (endpoint = '/api/exercises') => {
     try {
       const response = await axios.get(endpoint);
       const shuffleData = response.data.sort(() => 0.5 - Math.random());
-      const selectExercises = shuffleData.slice(0, 5);
+      const selectExercises = shuffleData.slice(0, 3);
       setExercises(selectExercises);
     } catch (error) {
       console.error('Error Fetching');
@@ -135,17 +149,17 @@ const App = () => {
             } />
             <Route path="/goals" element={
               <ProtectedRoute>
-                <Goals user={userProfile}/>
+                <Goals user={userProfile} fetchUser={fetchUser}/>
               </ProtectedRoute>
             } />
             <Route path="/badges" element={
               <ProtectedRoute>
-                <Badges user={userProfile} fetchUser={fetchUser} />
+                <Badges user={userProfile} fetchUser={fetchUser} switchIcon={switchIcon}/>
               </ProtectedRoute>
             } />
             <Route path="/search/users" element={
               <ProtectedRoute>
-                <SearchUsers user={userProfile} fetchUser={fetchUser}/>
+                <SearchUsers user={userProfile} fetchUser={fetchUser} switchIcon={switchIcon}/>
               </ProtectedRoute>
             } />
             <Route path="/meetups" element={
@@ -155,7 +169,7 @@ const App = () => {
             } />
             <Route path="/profile" element={
               <ProtectedRoute>
-                <Profile user={userProfile} fetchUser={fetchUser}/>
+                <Profile user={userProfile} fetchUser={fetchUser} switchIcon={switchIcon}/>
               </ProtectedRoute>
             } />
           </Routes>

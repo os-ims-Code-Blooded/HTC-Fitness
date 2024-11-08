@@ -36,7 +36,7 @@ const SavedExerciseSchema = new mongoose.Schema({
 });
 
 const friendsSchema = new mongoose.Schema({
-  googleId: { type: String, required: true, unique: true },
+  googleId: { type: String, required: true },
   nameFirst: String,
   nameLast: String,
   email: String,

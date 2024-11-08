@@ -39,7 +39,6 @@ router.patch('/:userId/saved-exercises', async (req, res) => {
   try {
     const { userId } = req.params;
     const { exercises } = req.body;
-    console.log('exercises saved', req.body)
 
     const user = await User.findById(userId);
 
@@ -49,7 +48,7 @@ router.patch('/:userId/saved-exercises', async (req, res) => {
     const numCompletedExercises = exercises.filter(
       (exercise) => exercise.completedStatus === true,
     ).length;
-    console.log('numCompleted', numCompletedExercises);
+
     user.completedExercises += numCompletedExercises;
     user.saved_exercises = exercises;
     user.numOfSavedExercises = exercises.length;

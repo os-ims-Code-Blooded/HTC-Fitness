@@ -32,7 +32,6 @@ const NavBar = ({ setIsAuthenticated }) => {
   const isRoutines = location.pathname === '/routines';
 
   const handleSearch = () => {
-    console.log('Searching for', searchInput);
     setSearchInput('');
   };
 
