@@ -55,15 +55,16 @@ const App = () => {
   const switchIcon = (achievementName) => {
     switch (achievementName) {
       case 'Fitness Master':
-        return (<GiFireDash />);
+        return (<GiFireDash size={50} />);
       case 'Fitness God':
-        return (<GiFireSilhouette />);
+        return (<GiFireSilhouette size={50} />);
       case 'Exercise Saver':
-        return (<GiFireFlower />);
+        return (<GiFireFlower size={50} />);
       default:
-        return (<SlFire />);
+        return (<SlFire size={50}/>);
     }
   };
+
 
   const fetchUser = async () => {
 
