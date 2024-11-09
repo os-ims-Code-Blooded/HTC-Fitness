@@ -17,7 +17,7 @@ dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 const DIST_DIR = path.resolve(__dirname, '../dist/client');
 const app = express();
 mongoose.connect('mongodb://127.0.0.1:27017/HTC-Fitness')
@@ -46,7 +46,7 @@ passport.use(new GoogleStrategy({
   // ${process.env.GOOGLE_CALLBACK_URL}
   clientID: `${process.env.GOOGLE_CLIENT_ID}`,
   clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-  callbackURL: 'http://localhost:3000/auth/google/callback',
+  callbackURL: `${process.env.CLIENT_URL}:${process.env.PORT}/auth/google/callback`,
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     // Check if User profile exists in DB
@@ -147,5 +147,5 @@ app.get('/', isAuthenticated, (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.info(`Server listening at http://localhost:${PORT}`);
+  console.info(`Server listening at ${process.env.CLIENT_URL}:${process.env.PORT}`);
 });
