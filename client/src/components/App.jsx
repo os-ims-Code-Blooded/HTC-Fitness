@@ -176,7 +176,7 @@ const App = () => {
             } />
             <Route path="/profile" element={
               <ProtectedRoute>
-                <Profile user={userProfile} fetchUser={fetchUser} switchIcon={switchIcon}/>
+                <Profile user={userProfile} meetups={meetups} fetchUser={fetchUser} switchIcon={switchIcon}/>
               </ProtectedRoute>
             } />
           </Routes>
