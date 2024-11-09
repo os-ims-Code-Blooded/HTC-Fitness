@@ -24,9 +24,7 @@ const MenuProps = {
 /// ////////////////////////////////////////////////////
 
 export default function FriendSelect(props) {
-  console.log('PROPS.FRIENDS', props.friends);
   const friends = props.friends.map((friend) => friend);
-  // console.log('FRIENDS TO SELECT', friends);
 
   const handleChange = (event) => {
     const {
@@ -39,8 +37,6 @@ export default function FriendSelect(props) {
       return event.target.value.includes(isSelected);
     });
 
-    // console.log("Value", value)
-    // console.log('Current Attendees', newAttendees);
     props.setAttendees(
       typeof value === 'string' ? props.attendees.concat(...value) : value,
     );
@@ -72,8 +68,6 @@ export default function FriendSelect(props) {
             <MenuItem key={i} value={`${friend.nameFirst} ${friend.nameLast}`}>
               <Checkbox checked={props.attendees.includes(`${friend.nameFirst} ${friend.nameLast}`)} />
               <ListItemText primary={`${friend.nameFirst} ${friend.nameLast}`}/>
-            {/* {console.log('FRIEND', `${friend.nameFirst} ${friend.nameLast}`)} */}
-
             </MenuItem>
 
           ))
