@@ -11,9 +11,6 @@ const ProfileMeetups = (props) => {
   const [profileMeetups, setProfileMeetups] = useState([]);
 
   useEffect(() => {
-    console.log('PROPS.meetups', props.meetups);
-    console.log('PROPS.user', props.user);
-
     if (!props.meetups || props.meetups.length === 0) {
       console.error('Error in profile meetups; no meetups provided.');
       return;
@@ -25,12 +22,7 @@ const ProfileMeetups = (props) => {
       meetup.attendees.map((attendee) => attendee.googleId).includes(props.user.googleId));
 
     // filter for meetups that the user is hosting
-    const hostMeetups = props.meetups.filter((meetup) => {
-      console.log('MEETUP HOST, GOOGLEID', meetup.host, props.user.googleId);
-
-      return meetup.host === props.user.googleId;
-    });
-    console.log('setProfileMeetups', [...subbedMeetups, ...hostMeetups]);
+    const hostMeetups = props.meetups.filter((meetup) => meetup.host === props.user.googleId);
     setProfileMeetups([...subbedMeetups, ...hostMeetups]);
   }, []);
 

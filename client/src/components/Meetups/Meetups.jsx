@@ -44,8 +44,6 @@ const Meetups = (props) => {
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////
 
-  // console.log("PROPS", props)
-
   const handleCreate = () => {
     if (value !== null && meetupName.length) {
       let date = value.$d;
@@ -73,12 +71,10 @@ const Meetups = (props) => {
   /// ///////////////////////////////////////////////////
   const handleNameChange = (e) => {
     setMeetupName(e.target.value);
-    // console.log('MEETUPNAME', meetupName);
   };
   /// /////////////////////////////////////////////////
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
-    // console.log('LOCATION', location);
   };
   /// //////////////////////////////////////////////////
 
