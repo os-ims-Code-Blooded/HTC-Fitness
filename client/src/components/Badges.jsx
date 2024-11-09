@@ -111,14 +111,14 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
           </Select>
         </FormControl>
       </Box>
-      <Box display='flex' paddingLeft='20px' flexDirection='row' width='100%' alignItems='top' justifyContent='center' sx={{ overflowY: 'auto', borderColor: 'yellow' }}>
+      <Box display='flex' paddingLeft='20px' flexDirection='row' width='100%' alignItems='top' justifyContent='center'>
         <Box width='48%'>
           <Typography variant="h6" align="left" paddingLeft='20px' mt={4}>Earned Badges {`(${user.badges.length}/${achievements.length})`}</Typography>
           <Divider width='100%' color='white' />
-          <Box display="flex" flexDirection="column" >
+          <Box display="flex" flexDirection="column" sx={{ height: '300px', overflowY: 'auto' }} >
             {badges && badges.length > 0 ? (
               badges.map((badge, index) => (
-                <Box key={index} mb={1} sx={{height: '600px', overflowY: 'auto' }} padding='20px' textAlign="center" alignItems="left" justifyItems='left' justifyContent='left' alignContent='left'>
+                <Box key={index} mb={1} textAlign="center" alignItems="left" justifyItems='left' justifyContent='left' alignContent='left'>
                   <Typography>{badge.name}</Typography>
                   <Typography variant="body2" color="textSecondary">{badge.description}</Typography>
                   <Typography variant="caption">{new Date(badge.earnedAt).toLocaleDateString()}</Typography>
@@ -151,7 +151,7 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
             />
             <Box sx={{ height: '600px', overflowY: 'auto' }}>
               {achievements.map((achievement, index) => (
-                <Box key={index} mb={1} padding='20px' textAlign="center" sx={{maxHeight: '300px'}} >
+                <Box key={index} mb={1} padding='20px' textAlign="center" sx={{ maxHeight: '300px' }} >
                 <Typography>{achievement.name}</Typography>
                 <Typography variant="body2" color="textSecondary">{achievement.description}</Typography>
                 {

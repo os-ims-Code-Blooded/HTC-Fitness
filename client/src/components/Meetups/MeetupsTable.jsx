@@ -74,7 +74,6 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
                 aria-controls="panel1-content"
                 id="panel1-header"
               >
-                {console.log(user.saved_exercises)}
                 view exercises
               </AccordionSummary>
               <AccordionDetails>
