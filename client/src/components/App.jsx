@@ -94,7 +94,7 @@ const App = () => {
         const meetupResponse = await axios.get('/api/meetups');
         setIsAuthenticated(response.data.isAuthenticated);
 
-        setMeetups(meetupResponse.data)
+        setMeetups(meetupResponse.data.meetups)
         // Fetch user profile if authenticated
         if (response.data.isAuthenticated) {
           const profileResponse = await axios.get('/me');

@@ -65,21 +65,17 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
                 aria-controls="panel1-content"
                 id="panel1-header"
               >
-                {console.log(user.saved_exercises)}
                 view exercises
               </AccordionSummary>
               <AccordionDetails>
-              {
-
-                    meetup.routine.map((exercise, indx) => (
-
-                        <p key={indx}>
-                          {user.saved_exercises[indx].sets} sets
-                           of {user.saved_exercises[indx].reps} {exercise.name}
-                          </p>
-                    ))
-
-              }
+                {
+                  meetup.routine.map((exercise, indx) => (
+                    <p key={indx}>
+                      {user.saved_exercises[indx].sets ? user.saved_exercises[indx].sets : 'N/A'} sets
+                      of {user.saved_exercises[indx].reps ? user.saved_exercises[indx].reps : 'N/A'} {exercise.name}
+                    </p>
+                  ))
+                }
               </AccordionDetails>
             </Accordion>
 
