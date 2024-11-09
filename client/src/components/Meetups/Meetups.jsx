@@ -82,7 +82,7 @@ const Meetups = (props) => {
 
   /// ///////////////////////////////////////////////////
   return (
-    <MeetBox>
+    <MeetBox sx={{ padding: '15px' }}>
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
       <h1 style={ { color: 'orange', textAlign: 'center', paddingLeft: '20px' } }>MEETUPS</h1>

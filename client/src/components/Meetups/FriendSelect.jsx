@@ -32,7 +32,8 @@ export default function FriendSelect(props) {
       target: { value },
     } = event;
 
-    props.setAttendees(props.attendees.concat(event.target.value));
+    props.setAttendees(
+      typeof value === 'string' ? props.attendees.concat(event.target.value) : value);
   };
 
   // console.log("ATTENDEES", props.attendees)
