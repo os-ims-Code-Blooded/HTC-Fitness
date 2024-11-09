@@ -140,7 +140,7 @@ router.delete('/:userId/goal-weight', async (req, res) => {
 router.get('/:userId', async (req, res) => {
   const { userId } = req.params;
   try {
-    const user = await User.findById(userId);
+    const user = await User.findOne({googleId: userId});
     if (!user) {
       return res.status(404).send('User not found');
     }

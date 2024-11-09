@@ -46,6 +46,20 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
       goal: 10,
       progress: user.saved_exercises.length || 0,
     },
+    {
+      name: 'Friendly',
+      description: 'User has added a friend',
+      icon: 'GiFist',
+      goal: 1,
+      progress: user.friends_list.length || 0,
+    },
+    {
+      name: 'Competitor',
+      description: 'User has hosted a meetup',
+      icon: 'GiFireBreath',
+      goal: 1,
+      progress: user.meetups_list.length || 0,
+    },
   ];
 
   const handleBadgeChange = (event) => {

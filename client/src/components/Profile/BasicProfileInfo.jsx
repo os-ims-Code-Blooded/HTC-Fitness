@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,9 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const BasicProfileInfo = (props) => {
-
-  return (
+const BasicProfileInfo = (props) => (
     <TableContainer component={Paper}>
       <Table sx={{ width: 480 }} aria-label="simple table">
         <TableBody>
@@ -27,7 +25,6 @@ const BasicProfileInfo = (props) => {
         </TableBody>
       </Table>
     </TableContainer>
-  )
-}
+);
 
 export default BasicProfileInfo;
