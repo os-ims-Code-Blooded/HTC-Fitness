@@ -24,21 +24,31 @@ const MenuProps = {
 /// ////////////////////////////////////////////////////
 
 export default function FriendSelect(props) {
+  
+
+  console.log('PROPS.FRIENDS', props.friends);
   const friends = props.friends.map((friend) => friend);
-  // console.log(friends);
+  // console.log('FRIENDS TO SELECT', friends);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
 
-    props.setAttendees(props.attendees.concat(event.target.value));
+    const newAttendees = props.friends.filter((friend) => {
+      const isSelected = `${friend.nameFirst} ${friend.nameLast}`;
+
+      return event.target.value.includes(isSelected);
+    });
+
+    // console.log("Value", value)
+    // console.log('Current Attendees', newAttendees);
+    props.setAttendees(
+      typeof value === 'string' ? props.attendees.concat(...value) : value,
+    );
+    props.setSubmitAttendees(newAttendees);
   };
 
-  // console.log("ATTENDEES", props.attendees)
-  // console.log("FS PROPS", props)
-
-  // console.log('FRIENDS LIST', friendsList);
   /// ///////////////////////////////////////////////////////////
   return (
     <Box sx={{ minWidth: 200, backgroundColor: 'grey' }}>
@@ -49,6 +59,7 @@ export default function FriendSelect(props) {
           id="demo-simple-select"
           onChange={handleChange}
           multiple
+
           value={props.attendees}
 
           input={<OutlinedInput label="Tag" />}

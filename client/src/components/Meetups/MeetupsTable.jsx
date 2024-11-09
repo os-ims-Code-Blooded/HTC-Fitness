@@ -34,6 +34,7 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
   /// ////////////////////////////////////////////////////////////
   return (
     <TableContainer component={Paper}>
+          {/* {console.log("MEETUP TABLE MEETUPs", meetups)} */}
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
       <TableHead>
         <TableRow>
@@ -64,6 +65,7 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
                 aria-controls="panel1-content"
                 id="panel1-header"
               >
+                {console.log(user.saved_exercises)}
                 view exercises
               </AccordionSummary>
               <AccordionDetails>
@@ -71,7 +73,10 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
 
                     meetup.routine.map((exercise, indx) => (
 
-                        <p key={indx}>{exercise.name}</p>
+                        <p key={indx}>
+                          {user.saved_exercises[indx].sets} sets
+                           of {user.saved_exercises[indx].reps} {exercise.name}
+                          </p>
                     ))
 
               }
@@ -85,8 +90,8 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
             <TableCell align="right">
 
               {
-              meetup.attendees.map((attendee, ind) => (
-                      <p key={ind}>{attendee}</p>
+              meetup.attendees.map((attendee, ind, array) => (
+                      <p key={`${attendee.googleId}${array.meetupName}${ind}`}>{`${attendee.nameFirst} ${attendee.nameLast}`}</p>
               ))
 
               }

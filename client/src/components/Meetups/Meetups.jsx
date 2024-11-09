@@ -40,6 +40,7 @@ const Meetups = (props) => {
   const [meetupName, setMeetupName] = useState('');
   const [location, setLocation] = useState('');
   const [attendees, setAttendees] = useState([]);
+  const [submitAttendees, setSubmitAttendees] = useState([]);
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -56,7 +57,7 @@ const Meetups = (props) => {
         routine: props.user.saved_exercises,
         meetupLocation: location,
         meetupDate: date,
-        attendees,
+        attendees: submitAttendees,
       });
 
       const updateMeetupResponse = async () => {
@@ -67,6 +68,7 @@ const Meetups = (props) => {
       updateMeetupResponse();
     }
     setAttendees([])
+    setSubmitAttendees([])
   };
   /// ///////////////////////////////////////////////////
   const handleNameChange = (e) => {
@@ -82,7 +84,7 @@ const Meetups = (props) => {
 
   /// ///////////////////////////////////////////////////
   return (
-    <MeetBox>
+    <MeetBox sx={{ padding: '15px' }}>
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
       <h1 style={ { color: 'orange', textAlign: 'center', paddingLeft: '20px' } }>MEETUPS</h1>
@@ -111,6 +113,8 @@ const Meetups = (props) => {
 {/* ////////////////////////////////////////////////////////////////////// */}
         <div style={{ padding: '15px' }}></div>
       <FriendSelect
+      submitAttendees={submitAttendees}
+      setSubmitAttendees={setSubmitAttendees}
       attendees={attendees}
       setAttendees={setAttendees}
       friends={props.user.friends_list}
