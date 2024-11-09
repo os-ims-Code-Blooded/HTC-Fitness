@@ -39,7 +39,7 @@ const Profile = (props) => {
         display: 'flex', flexDirection: 'column', paddingTop: '32px', width: '70%',
       }}>
         <span style={{}}>Subscribed Meetups</span>
-        <ProfileMeetups user={props.user}/>
+        <ProfileMeetups user={props.user} meetups={props.meetups}/>
       </div>
     </div>
   );
