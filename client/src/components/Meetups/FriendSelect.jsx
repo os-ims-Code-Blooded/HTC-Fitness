@@ -24,8 +24,6 @@ const MenuProps = {
 /// ////////////////////////////////////////////////////
 
 export default function FriendSelect(props) {
-  
-
   console.log('PROPS.FRIENDS', props.friends);
   const friends = props.friends.map((friend) => friend);
   // console.log('FRIENDS TO SELECT', friends);

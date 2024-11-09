@@ -8,30 +8,31 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const ProfileMeetups = (props) => {
-
   const [profileMeetups, setProfileMeetups] = useState([]);
 
   useEffect(() => {
+    console.log('PROPS.meetups', props.meetups);
+    console.log('PROPS.user', props.user);
 
     if (!props.meetups || props.meetups.length === 0) {
-      console.error(`Error in profile meetups; no meetups provided.`)
+      console.error('Error in profile meetups; no meetups provided.');
       return;
     }
 
     // filter through the array of meetup objects
-    const subbedMeetups = props.meetups.filter((meetup) => {
+    const subbedMeetups = props.meetups.filter((meetup) =>
       // for every meetup, filter for only meetups that are associated with user
-      return meetup.attendees.map( (attendee) => attendee.googleId).includes(props.user.googleId)
-    })
+      meetup.attendees.map((attendee) => attendee.googleId).includes(props.user.googleId));
 
     // filter for meetups that the user is hosting
     const hostMeetups = props.meetups.filter((meetup) => {
-      return meetup.host === props.user.googleId
-    })
+      console.log('MEETUP HOST, GOOGLEID', meetup.host, props.user.googleId);
 
-    // set state of this component to meetups if filter was successful
-    (subbedMeetups && subbedMeetups.length) ? setProfileMeetups([...subbedMeetups, ...hostMeetups]) : setProfileMeetups([]);
-  }, [])
+      return meetup.host === props.user.googleId;
+    });
+    console.log('setProfileMeetups', [...subbedMeetups, ...hostMeetups]);
+    setProfileMeetups([...subbedMeetups, ...hostMeetups]);
+  }, []);
 
   return (
     <TableContainer component={Paper}>
@@ -46,8 +47,8 @@ const ProfileMeetups = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-        { profileMeetups.length > 0 ?
-          <>
+        { profileMeetups.length > 0
+          ? <>
           { profileMeetups.map((meetup) => (
               <TableRow
                 key={`${meetup.host}-${meetup.meetupName}-${meetup.meetupDate}`}
@@ -61,11 +62,10 @@ const ProfileMeetups = (props) => {
                 <TableCell align="right">{meetup.routine.length}</TableCell>
                 <TableCell align="right">{meetup.attendees.length}</TableCell>
               </TableRow>
-            ))
+          ))
           }
           </>
-          :
-          <></>
+          : <></>
         }
         </TableBody>
       </Table>
