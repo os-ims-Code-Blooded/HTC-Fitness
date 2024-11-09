@@ -1,5 +1,7 @@
-# HTC-Fitness
+# HTC-Fitness-Legacy
   Hyperbolic Time Chamber Fitness is an application meant to help users find exercises that work for them and their body. HTC Fitness allows users to set and track goals while using their own custom routines to improve their health. The ultimate goal for HTC is for everyone who uses it, to create a healthier and happier life-style.
+
+  The legacy additions include a social networking system that allows users to connect with one-another, create meetups, and earn badge rewards for fitness achievements.
 
 # Node Version
   Node version 22 is used for this repo.
@@ -36,6 +38,29 @@
   ## Routines Page
     - Any exercises saved can have reps and sets added to them
 
+  ## Profile Page
+    - Displays a users's account information
+    - Shows any meetups a user is inlcuded in
+    - Contains list of user's friends
+
+  ## Users Page
+    - Displays all accounts in the database
+    - Can search for names in user list
+    - Users can add friends to their account
+
+
+  ## Badges Page
+    - Displays all badges a user can earn
+    - Shows user's progress towards earning each badge
+    - User can change the badge displayed on their account
+    - User can delete all progress
+
+  ## Meetups Page
+    - Can create meetups with name, location, and date
+    - Meetup host can invite friends
+    - Can view meetup, time/location, saved exercise routine sets and reps, and invitees
+    - Can delete meetup
+
 # Tech Stack
   - Api: API Ninjas [Docs](https://api-ninjas.com/api/exercises)
   - Frontend: React [Docs](https://react.dev/)
@@ -53,3 +78,8 @@
 # Contributors
   - Adonijah Johnson Jr [Github](https://github.com/AJ-Gamer)
   - Dakota Day [Github](https://github.com/Mothroom)
+  
+# Legacy Contributors
+  - Jeremy Hernandez [Github](https://github.com/jhernandez504)
+  - Ben Long [Github](https://github.com/benlongcp)
+  - Justin Sandrock [Github](https://github.com/sandrockjustin)
