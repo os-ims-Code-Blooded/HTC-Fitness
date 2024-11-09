@@ -24,17 +24,43 @@ const MenuProps = {
 /// ////////////////////////////////////////////////////
 
 export default function FriendSelect(props) {
+  
+
+  console.log('PROPS.FRIENDS', props.friends);
   const friends = props.friends.map((friend) => friend);
-  // console.log(friends);
+  // console.log('FRIENDS TO SELECT', friends);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
 
+    const newAttendees = props.friends.filter((friend) => {
+      const isSelected = `${friend.nameFirst} ${friend.nameLast}`;
+
+      return event.target.value.includes(isSelected);
+    });
+
+    // console.log("Value", value)
+    console.log('Current Attendees', newAttendees);
     props.setAttendees(
-      typeof value === 'string' ? props.attendees.concat(event.target.value) : value);
+      typeof value === 'string' ? props.attendees.concat(...value) : value,
+    );
+    props.setSubmitAttendees(newAttendees);
   };
+
+  // const handleChange = (event) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   console.log('VALUE', value);
+  //   console.log('EVENT TARGET', event.target.value);
+
+  //   const friendo = friends.filter((friend) => `${friend.nameFirst} ${friend.nameLast}` === event.target.value[0]);
+
+  //   console.log('FRIEND O', props.attendees.join(friendo));
+
+  // };
 
   // console.log("ATTENDEES", props.attendees)
   // console.log("FS PROPS", props)
@@ -50,6 +76,7 @@ export default function FriendSelect(props) {
           id="demo-simple-select"
           onChange={handleChange}
           multiple
+
           value={props.attendees}
 
           input={<OutlinedInput label="Tag" />}
