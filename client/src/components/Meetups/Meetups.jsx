@@ -62,13 +62,13 @@ const Meetups = (props) => {
 
       const updateMeetupResponse = async () => {
         const meetupResponse = await axios.get('/api/meetups');
-        props.setMeetups(meetupResponse.data);
+        props.setMeetups(meetupResponse.data.meetups);
       };
 
       updateMeetupResponse();
     }
-    setAttendees([])
-    setSubmitAttendees([])
+    setAttendees([]);
+    setSubmitAttendees([]);
   };
   /// ///////////////////////////////////////////////////
   const handleNameChange = (e) => {

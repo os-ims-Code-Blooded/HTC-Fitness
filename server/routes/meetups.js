@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const meetups = await Meetups.find({});
     // console.log('MEETUPS?', meetups);
     res.status(200)
-      .send(meetups);
+      .send({meetups});
   } catch (err) {
     console.error('error during meetup get request', err);
     res.sendStatus(500);
