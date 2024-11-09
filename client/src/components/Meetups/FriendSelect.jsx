@@ -42,30 +42,13 @@ export default function FriendSelect(props) {
     });
 
     // console.log("Value", value)
-    console.log('Current Attendees', newAttendees);
+    // console.log('Current Attendees', newAttendees);
     props.setAttendees(
       typeof value === 'string' ? props.attendees.concat(...value) : value,
     );
     props.setSubmitAttendees(newAttendees);
   };
 
-  // const handleChange = (event) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   console.log('VALUE', value);
-  //   console.log('EVENT TARGET', event.target.value);
-
-  //   const friendo = friends.filter((friend) => `${friend.nameFirst} ${friend.nameLast}` === event.target.value[0]);
-
-  //   console.log('FRIEND O', props.attendees.join(friendo));
-
-  // };
-
-  // console.log("ATTENDEES", props.attendees)
-  // console.log("FS PROPS", props)
-
-  // console.log('FRIENDS LIST', friendsList);
   /// ///////////////////////////////////////////////////////////
   return (
     <Box sx={{ minWidth: 200, backgroundColor: 'grey' }}>

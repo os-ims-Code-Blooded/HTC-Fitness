@@ -34,7 +34,7 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
   /// ////////////////////////////////////////////////////////////
   return (
     <TableContainer component={Paper}>
-          {console.log("MEETUP TABLE MEETUPs", meetups)}
+          {/* {console.log("MEETUP TABLE MEETUPs", meetups)} */}
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
       <TableHead>
         <TableRow>
