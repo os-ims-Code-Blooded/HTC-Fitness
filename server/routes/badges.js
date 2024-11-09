@@ -75,6 +75,7 @@ router.get('/badgeCheck', async (req, res) => {
         icon: 'GiFireFlower',
       });
     }
+    // check if user has added a friend
     if (friends_list.length > 0 && !badgeNames.includes('Friendly')) {
       await addBadge(user, {
         name: 'Friendly',
@@ -83,6 +84,7 @@ router.get('/badgeCheck', async (req, res) => {
         icon: 'GiFist',
       });
     }
+    // check if user has hosted a meetup
     if (meetups_list.length > 0 && !badgeNames.includes('Competitor')) {
       await addBadge(user, {
         name: 'Competitor',
@@ -115,7 +117,7 @@ router.patch('/displayBadge/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
-
+// handler to reset all progress for user except friends
 router.patch('/reset/:userId', (req, res) => {
   const { userId } = req.params;
   console.log('userId', userId);
@@ -126,6 +128,7 @@ router.patch('/reset/:userId', (req, res) => {
         badges: [],
         numOfSavedExercises: 0,
         completedExercises: 0,
+        meetups_list: [],
       },
     },
     { new: true },

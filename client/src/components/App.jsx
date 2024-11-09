@@ -52,7 +52,7 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [meetups, setMeetups] = useState([])
-
+  //dynamically render badges for user throughout app
   const switchIcon = (achievementName) => {
     switch (achievementName) {
       case 'Fitness Master':
@@ -70,10 +70,11 @@ const App = () => {
     }
   };
 
-
+  // fetch updated user data
   const fetchUser = async () => {
 
     try {
+      // send a request to check if user needs a badge
       await axios.get('/api/badges/badgeCheck');
       const userData = await axios.get('/me');
       await axios.patch('/api/friends', {friends_list: userData.data.friends_list})
@@ -88,11 +89,11 @@ const App = () => {
     // Check if user is authenticated
     const checkAuth = async () => {
       try {
-        
+
         const response = await axios.get('/api/check-auth');
         const meetupResponse = await axios.get('/api/meetups');
         setIsAuthenticated(response.data.isAuthenticated);
-        
+
         setMeetups(meetupResponse.data)
         // Fetch user profile if authenticated
         if (response.data.isAuthenticated) {

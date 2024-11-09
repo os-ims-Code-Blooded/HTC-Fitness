@@ -1,9 +1,5 @@
 import React from 'react';
 import {
-  GiFireSilhouette, GiFireDash, GiFireFlower, GiFireRay, GiFist,
-} from 'react-icons/gi';
-import { SlFire } from 'react-icons/sl';
-import {
   Box,
   Button,
   Grid2,
@@ -17,7 +13,6 @@ const HomePage = ({
 }) => {
   const userName = user ? user.nameFirst : '';
   const displayBadge = user ? user.displayBadge : '';
-  console.log('badge', user);
 
   return (
     <div style={{ padding: '20px', textAlign: 'center' }}>
