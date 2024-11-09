@@ -35,8 +35,6 @@ const SearchUsers = (props) => {
           }
         })
 
-        console.log(filteredData);
-
         setUsers(filteredData);
       })
       .catch((error) => {
@@ -101,7 +99,7 @@ const SearchUsers = (props) => {
 
   return (
     <div id="usersPage">
-      <div id="searchUsers" style={{ justifySelf: 'center', width: '20%', paddingTop: '32px' }}>
+      <div id="searchUsers" style={{justifySelf: 'center', width: '20%', paddingTop: '32px', display:'flex', alignContent:'center'}}>
         <TextField value={query} label="Search" sx={{ backgroundColor: 'grey' }} variant="filled" onChange={(e) => searchFilter(e.target.value)}></TextField>
       </div>
       <div id="allUsersView" style={{
@@ -111,6 +109,7 @@ const SearchUsers = (props) => {
           ? <List sx={{ bgcolor: '#1E1E1E', borderRadius: '4px' }}>
             {
               users.map((user, index) => (
+                <div key={`${user.googleId}-${index}`}>
                 <ListItem alignItems="flex-start" key={user.googleId}>
                   <ListItemAvatar>
                     <Avatar alt="Remy Sharp">{props.switchIcon(user.displayBadge)}</Avatar>
@@ -137,9 +136,10 @@ const SearchUsers = (props) => {
                       </React.Fragment>
                     }
                     />
-                    <PersonAddAlt1Icon onClick={() => addFriend(user)} sx={{ ':hover': { color: 'red' } }}/>
-                  <Divider variant="middle"/>
+                    <PersonAddAlt1Icon onClick={() => addFriend(user)} sx={{":hover": {color: 'cyan'}}}/>
                 </ListItem>
+                <Divider variant="middle" sx={{width: '90%'}}/>
+                </div>
               ))
             }
           </List>
@@ -151,49 +151,3 @@ const SearchUsers = (props) => {
 };
 
 export default SearchUsers;
-
-/*
-    <div id="searchUsers">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Goal Weight</th>
-            <th>Recent Weight</th>
-            <th>Number of Exercises</th>
-            <th>Number of Friends</th>
-          </tr>
-        </thead>
-        <tbody>
-          { users ?
-            users.map( (user) => {
-              return (
-                <tr key={user.googleId}>
-                  <td>{user.nameFirst} {user.nameLast}</td>
-                  <td>{user.email}</td>
-                  { user.goal_weight ?
-                    <td>{user.goal_weight}</td>
-                    :
-                    <td>N/A</td>
-                  }
-                  { user.weights.length > 0 ?
-                    <td>{user.weights[user.weights.length - 1].weight}</td>
-                    :
-                    <td>N/A</td>
-                  }
-                  <td>{user.saved_exercises.length}</td>
-                  <td>{user.friends_list.length}</td>
-                  <td><button type='button' onClick={() => addFriend(user)}>Add Friend</button></td>
-                </tr>
-              )
-            })
-            :
-            <tr>
-              <td>No users could be found.</td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-*/
