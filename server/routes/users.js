@@ -71,7 +71,7 @@ router.delete('/:userId/saved-exercises/:exerciseId', async (req, res) => {
     }
 
     user.saved_exercises = user.saved_exercises.filter(
-      (exercise) => exercise._id.toString() !== exerciseId
+      (exercise) => exercise._id.toString() !== exerciseId,
     );
 
     await user.save();
@@ -140,7 +140,8 @@ router.delete('/:userId/goal-weight', async (req, res) => {
 router.get('/:userId', async (req, res) => {
   const { userId } = req.params;
   try {
-    const user = await User.findOne({googleId: userId});
+    const user = await User.findOne({ googleId: userId });
+
     if (!user) {
       return res.status(404).send('User not found');
     }
