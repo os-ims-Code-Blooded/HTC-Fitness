@@ -20,6 +20,7 @@ const ProfileFriends = (props) => (
         }}>
           {
             props.user.friends_list.map((friend, index) => (
+              <div key={`${friend.googleId}-${index}`}>
               <ListItem alignItems="flex-start" key={friend.googleId}>
                 <ListItemAvatar>
                   <Avatar alt="Remy Sharp">{props.switchIcon(friend.displayBadge)}</Avatar>
@@ -49,6 +50,8 @@ const ProfileFriends = (props) => (
                 <PersonRemoveIcon onClick={() => props.removeFriend(friend.googleId)} sx={{ ':hover': { color: 'red' } }}/>
                 <Divider variant="middle"/>
               </ListItem>
+              <Divider variant="middle" sx={{width: '90%'}}/>
+              </div>              
             ))
           }
         </List>
