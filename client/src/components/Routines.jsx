@@ -83,7 +83,7 @@ const Routines = ({ userId, user, fetchUser }) => {
           <Grid item xs={12} sm={6} md={4} key={exercise._id}>
             <Card sx={{ height: '100%' }}>
               <CardContent>
-                <Typography variant="h5">{exercise.name}</Typography><IconButton onClick={() => handleToggle(exercise._id)}>{exercise.completedStatus ? <CheckboxIcon /> : <CheckBoxOutlineBlankIcon />}</IconButton>
+                <Typography variant="h5">{exercise.name}</Typography><IconButton sx={{borderRadius: '0' }}onClick={() => handleToggle(exercise._id)}><h6>Complete Status</h6>{exercise.completedStatus ? <CheckboxIcon /> : <CheckBoxOutlineBlankIcon />}</IconButton>
                 <Typography variant="body2" color="textSecondary">
                   {`Muscle: ${exercise.muscle.charAt(0).toUpperCase() + exercise.muscle.slice(1)}`}
                 </Typography>

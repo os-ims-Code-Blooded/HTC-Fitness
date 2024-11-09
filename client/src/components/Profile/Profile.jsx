@@ -7,44 +7,43 @@ import ProfileFriends from './ProfileFriends.jsx';
 import ProfileMeetups from './ProfileMeetups.jsx';
 
 const Profile = (props) => {
-
-  function removeFriend(id){
+  function removeFriend(id) {
     axios.delete(`/api/friends/${id}`)
       .then((response) => {
         props.fetchUser();
       })
       .catch((error) => {
-        console.error(`Error on delete request in profile, removing friend #${id}.`)
-      })
+        console.error(`Error on delete request in profile, removing friend #${id}.`);
+      });
   }
 
   return (
-    <div id="profilePage" style={{display: 'flex', flexDirection: 'row'}}>
-      <div id="profileInfo" style={{width: 544, padding: "32px"}}>
-        { props.user ?
-          <div id="profileInfo-container">
-            <div id="basicInfo" style={{maxWidth: 480}}>
-              <span style={{paddingBottom: "8px"}}>Your Account</span>
+    <div id="profilePage" style={{ display: 'flex', flexDirection: 'row' }}>
+      <div id="profileInfo" style={{ width: 544, padding: '32px' }}>
+        { props.user
+          ? <div id="profileInfo-container">
+            <div id="basicInfo" style={{ maxWidth: 480 }}>
+              <span style={{ paddingBottom: '8px' }}>Your Account</span>
               <BasicProfileInfo user={props.user}/>
             </div>
-            <div id="friendsDisplay" style={{display: "flex", maxWidth: 520}}>
+            <div id="friendsDisplay" style={{ display: 'flex', maxWidth: 520 }}>
               <ProfileFriends user={props.user} removeFriend={removeFriend} switchIcon={props.switchIcon}/>
             </div>
           </div>
-          :
-          <div>
+          : <div>
             401; user is not authenticated.
-          </div>        
+          </div>
         }
       </div>
-      <div id="profileMeetups"style={{display: "flex", flexDirection: 'column', paddingTop:"32px", width: "70%"}}>
+      <div id="profileMeetups"style={{
+        display: 'flex', flexDirection: 'column', paddingTop: '32px', width: '70%',
+      }}>
         <span style={{}}>Subscribed Meetups</span>
         <ProfileMeetups user={props.user}/>
       </div>
     </div>
-  )
-
-}
+  );
+};
 
 export default Profile;
 

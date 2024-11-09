@@ -19,7 +19,11 @@ router.post('/', async (req, res) => {
   const meetup = req.body;
 
   // console.log('REQ BODY - meetup', meetup);
-
+  await User.findOneAndUpdate(
+    { googleId: req.user.googleId },
+    { $push: { meetups_list: meetup } },
+    { new: true },
+  );
   await Meetups.create(meetup);
 
   Meetups.find({})

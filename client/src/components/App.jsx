@@ -9,7 +9,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { GiFireSilhouette, GiFireDash, GiFireFlower } from 'react-icons/gi';
+import { GiFireSilhouette, GiFireDash, GiFireFlower, GiFireRay, GiFist } from 'react-icons/gi';
+
 import { SlFire } from 'react-icons/sl';
 import axios from 'axios';
 
@@ -60,8 +61,12 @@ const App = () => {
         return (<GiFireSilhouette size={50} />);
       case 'Exercise Saver':
         return (<GiFireFlower size={50} />);
+      case 'Competitor':
+        return (<GiFireRay size={50} />);
+      case 'Friendly':
+        return (<GiFist size={50} />);
       default:
-        return (<SlFire size={50}/>);
+        return (<SlFire size={50} />);
     }
   };
 
@@ -139,6 +144,7 @@ const App = () => {
                   user={userProfile}
                   exercises={exercises}
                   fetchRandomExercises={fetchRandomExercises}
+                  switchIcon={switchIcon}
                 />
               </ProtectedRoute>
             } />

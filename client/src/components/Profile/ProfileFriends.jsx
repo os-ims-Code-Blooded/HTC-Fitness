@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -11,14 +11,14 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { GiFireSilhouette, GiFireDash, GiFireFlower } from 'react-icons/gi';
 import { SlFire } from 'react-icons/sl';
 
-const ProfileFriends = (props) => {
-
-  return (
-    <div className="profileFriends" style={{ width: 480, paddingTop: "32px"}}>
-      <span style={{paddingBottom: "8px"}}>Your Friends</span>
-      { props.user.friends_list && props.user.friends_list.length > 0 ?
-        <List sx={{ width: '100%', width: 480, bgcolor: '#1E1E1E', borderRadius: '4px'}}>
-          { 
+const ProfileFriends = (props) => (
+    <div className="profileFriends" style={{ width: 480, paddingTop: '32px' }}>
+      <span style={{ paddingBottom: '8px' }}>Your Friends</span>
+      { props.user.friends_list && props.user.friends_list.length > 0
+        ? <List sx={{
+          width: '100%', width: 480, bgcolor: '#1E1E1E', borderRadius: '4px',
+        }}>
+          {
             props.user.friends_list.map((friend, index) => (
               <ListItem alignItems="flex-start" key={friend.googleId}>
                 <ListItemAvatar>
@@ -31,7 +31,7 @@ const ProfileFriends = (props) => {
                       <Typography
                         component="span"
                         variant="body2"
-                        sx={{ color: 'text.primary', display: 'inline'}}
+                        sx={{ color: 'text.primary', display: 'inline' }}
                         >
                         {`${friend.email}`}
                         <br></br>
@@ -46,19 +46,17 @@ const ProfileFriends = (props) => {
                     </React.Fragment>
                   }
                   />
-                <PersonRemoveIcon onClick={() => props.removeFriend(friend.googleId)} sx={{":hover": {color: 'red'}}}/>
+                <PersonRemoveIcon onClick={() => props.removeFriend(friend.googleId)} sx={{ ':hover': { color: 'red' } }}/>
                 <Divider variant="middle"/>
               </ListItem>
             ))
           }
         </List>
-        :
-        <div>
+        : <div>
           You have not added any friends.
-        </div> 
+        </div>
       }
-    </div>   
-  )
-}
+    </div>
+);
 
 export default ProfileFriends;

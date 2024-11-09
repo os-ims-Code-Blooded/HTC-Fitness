@@ -13,7 +13,6 @@ const addBadge = async (user, badge) => {
 
     existingUser.badges.push(badge);
     await existingUser.save();
-
   } catch (err) {
     console.error('Failed to add badge');
     throw err;
@@ -34,7 +33,10 @@ router.post('/addBadge', async (req, res) => {
 // handler to check if user needs a badge
 router.get('/badgeCheck', async (req, res) => {
   const { user } = req;
-  const { badges, saved_exercises, completedExercises } = user;
+  const
+    {
+      badges, saved_exercises, completedExercises, friends_list, meetups_list,
+    } = user;
   const badgeNames = badges.map((badge) => badge.name);
 
   try {
@@ -71,6 +73,22 @@ router.get('/badgeCheck', async (req, res) => {
         description: 'User has saved 10 exercises',
         earnedAt: new Date(),
         icon: 'GiFireFlower',
+      });
+    }
+    if (friends_list.length > 0 && !badgeNames.includes('Friendly')) {
+      await addBadge(user, {
+        name: 'Friendly',
+        description: 'User has added a friend',
+        earnedAt: new Date(),
+        icon: 'GiFist',
+      });
+    }
+    if (meetups_list.length > 0 && !badgeNames.includes('Competitor')) {
+      await addBadge(user, {
+        name: 'Competitor',
+        description: 'User has hosted a meetup',
+        earnedAt: new Date(),
+        icon: 'GiFireRay',
       });
     }
     res.sendStatus(200);
