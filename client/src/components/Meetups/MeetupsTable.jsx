@@ -32,6 +32,14 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
     setMeetups(meetups.filter((meetup) => meetup._id !== meetups[e]._id));
   };
   /// ////////////////////////////////////////////////////////////
+  const handleUpdate = (e) => {
+    console.log('update');
+
+    // axios.put('api/meetups/edit', e)
+    //   .then()
+    //   .catch((err) => console.error(err));
+  };
+  /// ///////////////////////////////////////////////////////////////
   return (
     <TableContainer component={Paper}>
           {/* {console.log("MEETUP TABLE MEETUPs", meetups)} */}
@@ -48,9 +56,10 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
         </TableRow>
       </TableHead>
       <TableBody>
+        {console.log("MEETUPS", meetups)}
         {meetups.map((meetup, i) => (
 
-          <TableRow key={meetup.meetupName + meetup.meetupDate}>
+          <TableRow key={meetup.meetupName + meetup.meetupDate} onClick={(e) => handleUpdate(e)}>
             <TableCell component="th" scope="row">
               {meetup.meetupName}
             </TableCell>
@@ -69,15 +78,16 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
                 view exercises
               </AccordionSummary>
               <AccordionDetails>
-              {
 
-                    meetup.routine.map((exercise, indx) => (
+              { (meetup && meetup.routine && meetup.routine.length > 0 && user.saved_exercises.length > 0)
 
-                        <p key={indx}>
-                          {user.saved_exercises[indx].sets} sets
-                           of {user.saved_exercises[indx].reps} {exercise.name}
-                          </p>
-                    ))
+                ? meetup.routine.map((exercise, indx) => (
+                <p key={indx}>
+                  {exercise.sets ? exercise.sets : 'N/A'} sets
+                  of {exercise.reps ? exercise.reps : 'N/A'} {exercise.name}
+                </p>
+                ))
+                : <p>no routine</p>
 
               }
               </AccordionDetails>
