@@ -8,10 +8,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const ProfileMeetups = (props) => {
-
   useEffect(() => {
-    console.log(props.user)
-  }, [])
+    console.log(props.user);
+  }, []);
 
   return (
     <TableContainer component={Paper}>
@@ -27,12 +26,10 @@ const ProfileMeetups = (props) => {
         </TableHead>
       </Table>
     </TableContainer>
-  )
-}
+  );
+};
 
 export default ProfileMeetups;
-
-
 
 /*
         <TableBody>

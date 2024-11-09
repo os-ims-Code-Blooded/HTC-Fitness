@@ -9,7 +9,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { GiFireSilhouette, GiFireDash, GiFireFlower } from 'react-icons/gi';
+import { GiFireSilhouette, GiFireDash, GiFireFlower, GiFireRay, GiFist } from 'react-icons/gi';
+
 import { SlFire } from 'react-icons/sl';
 import axios from 'axios';
 
@@ -51,7 +52,7 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [meetups, setMeetups] = useState([])
-
+  //dynamically render badges for user throughout app
   const switchIcon = (achievementName) => {
     switch (achievementName) {
       case 'Fitness Master':
@@ -60,15 +61,20 @@ const App = () => {
         return (<GiFireSilhouette size={50} />);
       case 'Exercise Saver':
         return (<GiFireFlower size={50} />);
+      case 'Competitor':
+        return (<GiFireRay size={50} />);
+      case 'Friendly':
+        return (<GiFist size={50} />);
       default:
-        return (<SlFire size={50}/>);
+        return (<SlFire size={50} />);
     }
   };
 
-
+  // fetch updated user data
   const fetchUser = async () => {
 
     try {
+      // send a request to check if user needs a badge
       await axios.get('/api/badges/badgeCheck');
       const userData = await axios.get('/me');
       await axios.patch('/api/friends', {friends_list: userData.data.friends_list})
@@ -83,11 +89,11 @@ const App = () => {
     // Check if user is authenticated
     const checkAuth = async () => {
       try {
-        
+
         const response = await axios.get('/api/check-auth');
         const meetupResponse = await axios.get('/api/meetups');
         setIsAuthenticated(response.data.isAuthenticated);
-        
+
         setMeetups(meetupResponse.data)
         // Fetch user profile if authenticated
         if (response.data.isAuthenticated) {
@@ -139,6 +145,7 @@ const App = () => {
                   user={userProfile}
                   exercises={exercises}
                   fetchRandomExercises={fetchRandomExercises}
+                  switchIcon={switchIcon}
                 />
               </ProtectedRoute>
             } />

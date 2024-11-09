@@ -5,15 +5,19 @@ import {
   Grid2,
   Typography,
 } from '@mui/material';
+
 import ExerciseCard from './ExerciseCard.jsx';
 
-const HomePage = ({ user, exercises, fetchRandomExercises }) => {
+const HomePage = ({
+  user, exercises, fetchRandomExercises, switchIcon,
+}) => {
   const userName = user ? user.nameFirst : '';
+  const displayBadge = user ? user.displayBadge : '';
 
   return (
-    <div>
+    <div style={{ padding: '20px', textAlign: 'center' }}>
       <Typography variant="h4" gutterBottom align="center" marginTop="2rem">
-      {`Welcome, ${userName}, to the Hyperbolic Time Chamber`}
+      {'Welcome to the Hyperbolic Time Chamber,'} {userName} {switchIcon(displayBadge)}
       </Typography>
       <Box display="flex" justifyContent="center" gap={2} margin="20px 0">
         <Button

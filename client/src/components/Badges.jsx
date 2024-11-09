@@ -8,8 +8,6 @@ import {
   Typography,
   ListItemIcon,
 } from '@mui/material';
-import { GiFireSilhouette, GiFireDash, GiFireFlower } from 'react-icons/gi';
-import { SlFire } from 'react-icons/sl';
 import LinearProgress from '@mui/material/LinearProgress';
 import axios from 'axios';
 
@@ -45,6 +43,20 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
       icon: 'GiFireFlower',
       goal: 10,
       progress: user.saved_exercises.length || 0,
+    },
+    {
+      name: 'Friendly',
+      description: 'User has added a friend',
+      icon: 'GiFist',
+      goal: 1,
+      progress: user.friends_list.length || 0,
+    },
+    {
+      name: 'Competitor',
+      description: 'User has hosted a meetup',
+      icon: 'GiFireBreath',
+      goal: 1,
+      progress: user.meetups_list.length || 0,
     },
   ];
 
@@ -99,14 +111,14 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
           </Select>
         </FormControl>
       </Box>
-      <Box display='flex' paddingLeft='20px' flexDirection='row' width='100%' alignItems='top' justifyContent='center' sx={{ overflowY: 'auto' }}>
+      <Box display='flex' paddingLeft='20px' flexDirection='row' width='100%' alignItems='top' justifyContent='center' sx={{ overflowY: 'auto', borderColor: 'yellow' }}>
         <Box width='48%'>
-          <Typography variant="h6" align="left" paddingLeft='20px' mt={4}>Earned Badges</Typography>
+          <Typography variant="h6" align="left" paddingLeft='20px' mt={4}>Earned Badges {`(${user.badges.length}/${achievements.length})`}</Typography>
           <Divider width='100%' color='white' />
           <Box display="flex" flexDirection="column" >
             {badges && badges.length > 0 ? (
               badges.map((badge, index) => (
-                <Box key={index} mb={1} padding='20px' textAlign="center" alignItems="left" justifyItems='left' justifyContent='left' alignContent='left'>
+                <Box key={index} mb={1} sx={{height: '600px', overflowY: 'auto' }} padding='20px' textAlign="center" alignItems="left" justifyItems='left' justifyContent='left' alignContent='left'>
                   <Typography>{badge.name}</Typography>
                   <Typography variant="body2" color="textSecondary">{badge.description}</Typography>
                   <Typography variant="caption">{new Date(badge.earnedAt).toLocaleDateString()}</Typography>
@@ -131,37 +143,39 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
         />
         <Box width='48%' paddingRight='20px' sx={{ alignContent: 'center', alignItems: 'right', justifyItems: 'right' }}>
           <Box display='flex' flexDirection='column' justifyItems='right' width='100%' >
-          <Typography variant="h6" align="center" mt={4}>All Badges</Typography>
+          <Typography variant="h6" align="center" mt={4}>All Badges {`(${achievements.length})`}</Typography>
             <Divider
               display='flex'
               width='100%'
               color='white'
             />
+            <Box sx={{ height: '600px', overflowY: 'auto' }}>
               {achievements.map((achievement, index) => (
-                <Box key={index} mb={1} padding='20px' textAlign="center" >
+                <Box key={index} mb={1} padding='20px' textAlign="center" sx={{maxHeight: '300px'}} >
                 <Typography>{achievement.name}</Typography>
                 <Typography variant="body2" color="textSecondary">{achievement.description}</Typography>
                 {
                   switchIcon(achievement.name)
                 }
-                <Box mt={2}>
-                <LinearProgress
-                  variant="determinate"
-                  value={calculateProgress(achievement.progress, achievement.goal)}
-                  sx={{
-                    backgroundColor: 'grey.300',
-                    '& .MuiLinearProgress-bar': {
-                      backgroundColor: calculateProgress(achievement.progress, achievement.goal) === 100 ? '#4CAF50' : 'primary.main',
-                    },
-                  }}
-                />
-                <Typography variant="caption">{`${achievement.progress}/${achievement.goal} completed`}</Typography>
-              </Box>
+                  <Box mt={2}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={calculateProgress(achievement.progress, achievement.goal)}
+                      sx={{
+                        backgroundColor: 'grey.300',
+                        '& .MuiLinearProgress-bar': {
+                          backgroundColor: calculateProgress(achievement.progress, achievement.goal) === 100 ? '#4CAF50' : 'primary.main',
+                        },
+                      }}
+                    />
+                  <Typography variant="caption">{`${achievement.progress}/${achievement.goal} completed`}</Typography>
+                </Box>
               </Box>
               ))}
-          </Box>
+              </Box>
+            </Box>
           <Box>
-            <button onClick={resetProgress} style={{ backgroundColor: 'red' }}> Reset Progress</button>
+            <button onClick={resetProgress} style={{ backgroundColor: 'red', borderRadius: '4px' }}> Reset Progress</button>
           </Box>
         </Box>
       </Box>

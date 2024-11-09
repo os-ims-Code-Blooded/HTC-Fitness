@@ -13,7 +13,6 @@ const addBadge = async (user, badge) => {
 
     existingUser.badges.push(badge);
     await existingUser.save();
-
   } catch (err) {
     console.error('Failed to add badge');
     throw err;
@@ -34,7 +33,10 @@ router.post('/addBadge', async (req, res) => {
 // handler to check if user needs a badge
 router.get('/badgeCheck', async (req, res) => {
   const { user } = req;
-  const { badges, saved_exercises, completedExercises } = user;
+  const
+    {
+      badges, saved_exercises, completedExercises, friends_list, meetups_list,
+    } = user;
   const badgeNames = badges.map((badge) => badge.name);
 
   try {
@@ -73,6 +75,24 @@ router.get('/badgeCheck', async (req, res) => {
         icon: 'GiFireFlower',
       });
     }
+    // check if user has added a friend
+    if (friends_list.length > 0 && !badgeNames.includes('Friendly')) {
+      await addBadge(user, {
+        name: 'Friendly',
+        description: 'User has added a friend',
+        earnedAt: new Date(),
+        icon: 'GiFist',
+      });
+    }
+    // check if user has hosted a meetup
+    if (meetups_list.length > 0 && !badgeNames.includes('Competitor')) {
+      await addBadge(user, {
+        name: 'Competitor',
+        description: 'User has hosted a meetup',
+        earnedAt: new Date(),
+        icon: 'GiFireRay',
+      });
+    }
     res.sendStatus(200);
   } catch (err) {
     res.sendStatus(500);
@@ -97,7 +117,7 @@ router.patch('/displayBadge/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
-
+// handler to reset all progress for user except friends
 router.patch('/reset/:userId', (req, res) => {
   const { userId } = req.params;
   console.log('userId', userId);
@@ -108,6 +128,7 @@ router.patch('/reset/:userId', (req, res) => {
         badges: [],
         numOfSavedExercises: 0,
         completedExercises: 0,
+        meetups_list: [],
       },
     },
     { new: true },
