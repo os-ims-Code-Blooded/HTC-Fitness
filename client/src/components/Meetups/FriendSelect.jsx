@@ -44,7 +44,7 @@ export default function FriendSelect(props) {
     props.setSubmitAttendees(newAttendees);
   };
 
-  /// ///////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////////
   return (
     <Box sx={{ minWidth: 200, backgroundColor: 'grey' }}>
       <FormControl fullWidth >

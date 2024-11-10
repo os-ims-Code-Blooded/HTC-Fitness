@@ -75,7 +75,7 @@ const Meetups = (props) => {
     setMeetupName(e.target.value);
     // console.log('MEETUPNAME', meetupName);
   };
-  /// /////////////////////////////////////////////////
+  /// //////////////////////////////////////////////////
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
     // console.log('LOCATION', location);

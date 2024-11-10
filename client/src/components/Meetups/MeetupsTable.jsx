@@ -39,7 +39,7 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
     //   .then()
     //   .catch((err) => console.error(err));
   };
-  /// ///////////////////////////////////////////////////////////////
+  /// ////////////////////////////////////////////////////////////////
   return (
     <TableContainer component={Paper}>
           {/* {console.log("MEETUP TABLE MEETUPs", meetups)} */}
