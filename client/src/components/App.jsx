@@ -77,7 +77,6 @@ const App = () => {
       // send a request to check if user needs a badge
       await axios.get('/api/badges/badgeCheck');
       const userData = await axios.get('/me');
-      await axios.patch('/api/friends', {friends_list: userData.data.friends_list})
 
       setUserProfile(userData.data)
     } catch (error) {
