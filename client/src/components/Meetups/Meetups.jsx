@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// map component
-import { APIProvider, Map } from '@vis.gl/react-google-maps';
-
 // mui components
 import { Box } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -18,7 +15,6 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 // delete icon for meetup entries
-import ClearIcon from '@mui/icons-material/Clear';
 import FriendSelect from './FriendSelect.jsx';
 import MeetupTable from './MeetupsTable.jsx';
 
@@ -43,8 +39,6 @@ const Meetups = (props) => {
   const [submitAttendees, setSubmitAttendees] = useState([]);
 
   /// /////////////////////////////////////////////////////////////////////////////////////////////
-
-  // console.log("PROPS", props)
 
   const handleCreate = () => {
     if (value !== null && meetupName.length) {
@@ -73,14 +67,11 @@ const Meetups = (props) => {
   /// ///////////////////////////////////////////////////
   const handleNameChange = (e) => {
     setMeetupName(e.target.value);
-    // console.log('MEETUPNAME', meetupName);
   };
   /// //////////////////////////////////////////////////
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
-    // console.log('LOCATION', location);
   };
-  /// //////////////////////////////////////////////////
 
   /// ///////////////////////////////////////////////////
   return (
@@ -112,6 +103,7 @@ const Meetups = (props) => {
       </LocalizationProvider>
 {/* ////////////////////////////////////////////////////////////////////// */}
         <div style={{ padding: '15px' }}></div>
+        <>
       <FriendSelect
       submitAttendees={submitAttendees}
       setSubmitAttendees={setSubmitAttendees}
@@ -120,6 +112,7 @@ const Meetups = (props) => {
       friends={props.friends}
       sx={{ backgroundColor: 'grey' }}
       />
+      </>
       <div style={{ padding: '15px' }}></div>
 {/* /////////////////////////////////////////////////////////////////////// */}
       < SubmitButt sx={{
