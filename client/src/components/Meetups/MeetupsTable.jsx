@@ -85,10 +85,13 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
 
               </TableCell>
 
-            <TableCell align="right">{`${user.nameFirst} ${user.nameLast}`}</TableCell>
+            <TableCell align="right">{
+
+            `${user.nameFirst} ${user.nameLast}`
+            }</TableCell>
 
             <TableCell align="right">
-
+              {console.log("MEETUPS", meetups)}
               {
               meetup.attendees.map((attendee, ind, array) => (
                       <p key={`${attendee.googleId}${array.meetupName}${ind}`}>{`${attendee.nameFirst} ${attendee.nameLast}`}</p>
