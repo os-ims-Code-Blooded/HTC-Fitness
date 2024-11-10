@@ -11,7 +11,7 @@ import {
 import LinearProgress from '@mui/material/LinearProgress';
 import axios from 'axios';
 
-const Badges = ({ user, fetchUser, switchIcon }) => {
+const Badges = ({ user, fetchUser, switchIcon, friends }) => {
   const { badges, displayBadge } = user;
   const [selectedBadge, setSelectedBadge] = useState(displayBadge || '');
 
@@ -49,7 +49,7 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
       description: 'User has added a friend',
       icon: 'GiFist',
       goal: 1,
-      progress: props.friends.length || 0,
+      progress: friends.length || 0,
     },
     {
       name: 'Competitor',
