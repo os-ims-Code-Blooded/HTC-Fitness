@@ -14,12 +14,12 @@ import { SlFire } from 'react-icons/sl';
 const ProfileFriends = (props) => (
     <div className="profileFriends" style={{ width: 480, paddingTop: '32px' }}>
       <span style={{ paddingBottom: '8px' }}>Your Friends</span>
-      { props.user.friends_list && props.user.friends_list.length > 0
+      { props.friends && props.friends.length > 0
         ? <List sx={{
           width: '100%', width: 480, bgcolor: '#1E1E1E', borderRadius: '4px',
         }}>
           {
-            props.user.friends_list.map((friend, index) => (
+            props.friends.map((friend, index) => (
               <div key={`${friend.googleId}-${index}`}>
               <ListItem alignItems="flex-start" key={friend.googleId}>
                 <ListItemAvatar>
