@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// map component
-import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import { Select } from '@mui/material';
 
 // mui components
 import { Box } from '@mui/material';
@@ -18,7 +17,6 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 // delete icon for meetup entries
-import ClearIcon from '@mui/icons-material/Clear';
 import FriendSelect from './FriendSelect.jsx';
 import MeetupTable from './MeetupsTable.jsx';
 
@@ -77,7 +75,19 @@ const Meetups = (props) => {
     setLocation(e.target.value);
   };
   /// //////////////////////////////////////////////////
+  const selectRef = React.useRef(null);
+  /// ///////////////////////////////////////////////////////
+  React.useEffect(() => {
+    if (selectRef.current) {
+      const scrollbarWidth = getScrollbarWidth(selectRef.current);
+      // Use the scrollbar width as needed
+    }
+  }, [selectRef]);
 
+  function getScrollbarWidth(element) {
+    const scrollbarWidth = element.offsetWidth - element.clientWidth;
+    return scrollbarWidth;
+  }
   /// ///////////////////////////////////////////////////
   return (
     <MeetBox sx={{ padding: '15px' }}>
@@ -108,7 +118,9 @@ const Meetups = (props) => {
       </LocalizationProvider>
 {/* ////////////////////////////////////////////////////////////////////// */}
         <div style={{ padding: '15px' }}></div>
+        <>
       <FriendSelect
+      ref={selectRef}
       submitAttendees={submitAttendees}
       setSubmitAttendees={setSubmitAttendees}
       attendees={attendees}
@@ -116,6 +128,7 @@ const Meetups = (props) => {
       friends={props.user.friends_list}
       sx={{ backgroundColor: 'grey' }}
       />
+      </>
       <div style={{ padding: '15px' }}></div>
 {/* /////////////////////////////////////////////////////////////////////// */}
       < SubmitButt sx={{

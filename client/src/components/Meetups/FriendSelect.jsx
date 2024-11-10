@@ -9,6 +9,8 @@ import Select from '@mui/material/Select';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
+
+
 /// /////////////////////////////////////////////////////
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -47,25 +49,24 @@ export default function FriendSelect(props) {
   return (
     <Box sx={{ minWidth: 200, backgroundColor: 'grey' }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Select Friends</InputLabel>
+        <InputLabel >Select Friends</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
           onChange={handleChange}
           multiple
-
           value={props.attendees}
-
           input={<OutlinedInput label="Tag" />}
-
           renderValue={(selected) => selected.join(', ')}
-
           MenuProps={MenuProps}
         >
+          
         {
           friends.map((friend, i) => (
 
-            <MenuItem key={i} value={`${friend.nameFirst} ${friend.nameLast}`}>
+            <MenuItem 
+            key={i} 
+            value={`${friend.nameFirst} ${friend.nameLast}`}
+            style={{ display: 'flex', alignItems: 'center' }}
+            >
               <Checkbox checked={props.attendees.includes(`${friend.nameFirst} ${friend.nameLast}`)} />
               <ListItemText primary={`${friend.nameFirst} ${friend.nameLast}`}/>
             </MenuItem>
