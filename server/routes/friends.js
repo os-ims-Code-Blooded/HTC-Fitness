@@ -1,82 +1,78 @@
 const express = require('express');
-const { User } = require('../db/index');
+const { User, Friends } = require('../db/index');
 const router = express.Router();
 
 router.get('/', (req, res) => {
 
-  User.find({googleId: req.user.googleId})
-    .then((foundUser) => {
-      if (!foundUser){
-        res.sendStatus(404);
-        return;
-      }
+  Friends.find({googleId: req.user.googleId})
+    .then((friendsFound) => {
 
-      res.status(200).send(foundUser.friends_list)
+      if (!friendsFound){ res.sendStatus(404)};
+      res.status(200).send(friendsFound); // if error then maybe {friends: friendsFound}
     })
     .catch((error) => {
-      console.error(`Error on GET request to /api/friends.`)
+      console.error(`Error search for friends associated with #${req.user.googleId}.`)
       res.sendStatus(500);
     })
 
 })
 
 router.post('/', (req, res) => {
-  User.findOneAndUpdate({googleId: req.user.googleId}, {$push: {friends_list: req.body.friend}})
-    .then((foundUser) => {
-      if (!foundUser){
-        res.sendStatus(404);
-        return;
-      }
 
+  const newFriend = {
+    googleId: req.user.googleId,
+    friendId: req.body.friendId
+  }
+
+  Friends.create(newFriend)
+    .then(() => {
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.error(`Error on POST request to /api/friends.`)
+      console.error(`Error on create friend association for user #${req.user.googleId}.`)
       res.sendStatus(500);
     })
 })
 
 router.delete('/:id', (req, res) => {
-  User.findOneAndUpdate({googleId: req.user.googleId}, {$pull: {friends_list: {googleId: req.params.id}}})
-    .then((foundUser) => {
-      if (!foundUser){
-        res.sendStatus(404);
-        return;
-      }
+  
+  const filter = {
+    googleId: req.user.googleId,
+    friendId: req.params.id
+  }
 
-      res.status(200).send(foundUser)
+  Friends.findOneAndDelete(filter)
+    .then(() => {
+      res.sendStatus(200);
     })
     .catch((error) => {
-      console.error(`Error on DELETE request to /api/friends.`, error)
-      res.sendStatus(500);
+      console.error(`Error on remove friend association #${req.params.id} for user #${req.user.googleId}.`)
+      res.sendStatus(500);      
     })
+
 })
 
-router.patch('/', async (req, res) => {
+router.patch('/:id', async (req, res) => {
 
   try {
 
-    // make an array of only googleIds ['123123123123', '234234324234', '5435435341233467']
-    const outdatedFriends = req.body.friends_list.map((friend) => {
-      return friend.googleId
-    })
+    const filter = {
+      googleId: req.user.googleId,
+      friendId: req.params.id
+    }
 
-    // find the current user that we are trying to update friends for
-    const foundUser = await User.findOneAndUpdate({googleId: req.user.googleId})
-
-    // find all users, filter by seeing if they exist as a friend for current user
-    const updatedFriends = (await User.find({})).filter((user) => {
-      return outdatedFriends.includes(user.googleId);
-    })
-
-    foundUser.friends_list = updatedFriends;
-    await foundUser.save();
-    res.sendStatus(200);
+    const findFriend = await Friends.find(filter);
+    findFriend.favorite = !findFriend.favorite;
+    await findFriend.save();
+    res.sendStatus(201);
 
   } catch (error) {
-    console.error(`Error on patching user friends, updating items.`, error)
+
+    console.error(`Error on set favorite friend #${req.params.id} for user #${req.user.googleId}.`)
     res.sendStatus(500);
+
   }
+    
 
 })
 

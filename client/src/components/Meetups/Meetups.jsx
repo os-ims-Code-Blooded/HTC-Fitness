@@ -68,7 +68,7 @@ const Meetups = (props) => {
   const handleNameChange = (e) => {
     setMeetupName(e.target.value);
   };
-  /// /////////////////////////////////////////////////
+  /// //////////////////////////////////////////////////
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
   };
@@ -109,7 +109,7 @@ const Meetups = (props) => {
       setSubmitAttendees={setSubmitAttendees}
       attendees={attendees}
       setAttendees={setAttendees}
-      friends={props.user.friends_list}
+      friends={props.friends}
       sx={{ backgroundColor: 'grey' }}
       />
       </>

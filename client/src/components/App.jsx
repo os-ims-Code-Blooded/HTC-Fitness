@@ -51,7 +51,9 @@ const App = () => {
   const [exercises, setExercises] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
-  const [meetups, setMeetups] = useState([])
+  const [meetups, setMeetups] = useState([]);
+  const [friends, setFriends] = useState([])
+
   //dynamically render badges for user throughout app
   const switchIcon = (achievementName) => {
     switch (achievementName) {
@@ -77,12 +79,44 @@ const App = () => {
       // send a request to check if user needs a badge
       await axios.get('/api/badges/badgeCheck');
       const userData = await axios.get('/me');
+      fetchFriends();
 
       setUserProfile(userData.data)
     } catch (error) {
         console.error('Error fetching user data');
     }
   };
+
+  const fetchFriends = () => {
+    axios.get(`/api/friends`)
+    .then((friendsList) => {
+
+      // makes an array of only friendIds
+      if (friendsList.data.length !== 0){
+        const friendIdList = friendsList.data.map((friend) => {
+          return friend.friendId;
+        })
+
+        axios.get(`/api/users`)
+          .then((allUsers) => {
+            setFriends(
+              allUsers.data.filter((user) => {
+                return friendIdList.includes(user.googleId);
+              })
+            );
+          })
+          .catch((error) => {
+            console.error(`Error on request for all users during friends retrieval.`, error)
+          })
+      } else {
+        setFriends([]);
+      }
+
+    })
+    .catch((error) => {
+      console.error(`Error retrieving simple friends list.`, error)
+    })
+  }
 
   useEffect(() => {
     // Check if user is authenticated
@@ -92,13 +126,12 @@ const App = () => {
         const response = await axios.get('/api/check-auth');
         const meetupResponse = await axios.get('/api/meetups');
         setIsAuthenticated(response.data.isAuthenticated);
-
         setMeetups(meetupResponse.data.meetups)
+
         // Fetch user profile if authenticated
         if (response.data.isAuthenticated) {
           const profileResponse = await axios.get('/me');
           fetchUser(profileResponse.data);
-
         } else {
           setUserProfile(null);
         }
@@ -160,22 +193,22 @@ const App = () => {
             } />
             <Route path="/badges" element={
               <ProtectedRoute>
-                <Badges user={userProfile} fetchUser={fetchUser} switchIcon={switchIcon}/>
+                <Badges user={userProfile} friends={friends} fetchUser={fetchUser} switchIcon={switchIcon}/>
               </ProtectedRoute>
             } />
             <Route path="/search/users" element={
               <ProtectedRoute>
-                <SearchUsers user={userProfile} fetchUser={fetchUser} switchIcon={switchIcon}/>
+                <SearchUsers user={userProfile} friends={friends} fetchUser={fetchUser} switchIcon={switchIcon}/>
               </ProtectedRoute>
             } />
             <Route path="/meetups" element={
               <ProtectedRoute>
-                <Meetups meetups={meetups} setMeetups={setMeetups} user={userProfile}/>
+                <Meetups meetups={meetups} friends={friends} setMeetups={setMeetups} user={userProfile}/>
               </ProtectedRoute>
             } />
             <Route path="/profile" element={
               <ProtectedRoute>
-                <Profile user={userProfile} meetups={meetups} fetchUser={fetchUser} switchIcon={switchIcon}/>
+                <Profile user={userProfile} friends={friends} meetups={meetups} fetchUser={fetchUser} switchIcon={switchIcon}/>
               </ProtectedRoute>
             } />
           </Routes>

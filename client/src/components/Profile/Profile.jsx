@@ -7,6 +7,7 @@ import ProfileFriends from './ProfileFriends.jsx';
 import ProfileMeetups from './ProfileMeetups.jsx';
 
 const Profile = (props) => {
+
   function removeFriend(id) {
     axios.delete(`/api/friends/${id}`)
       .then((response) => {
@@ -27,7 +28,7 @@ const Profile = (props) => {
               <BasicProfileInfo user={props.user}/>
             </div>
             <div id="friendsDisplay" style={{ display: 'flex', maxWidth: 520 }}>
-              <ProfileFriends user={props.user} removeFriend={removeFriend} switchIcon={props.switchIcon}/>
+              <ProfileFriends user={props.user} friends={props.friends} removeFriend={removeFriend} switchIcon={props.switchIcon}/>
             </div>
           </div>
           : <div>
@@ -39,7 +40,7 @@ const Profile = (props) => {
         display: 'flex', flexDirection: 'column', paddingTop: '32px', width: '70%',
       }}>
         <span style={{}}>Subscribed Meetups</span>
-        <ProfileMeetups user={props.user} meetups={props.meetups}/>
+        <ProfileMeetups user={props.user} meetups={props.meetups} friends={props.friends}/>
       </div>
     </div>
   );

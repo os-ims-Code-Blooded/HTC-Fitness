@@ -49,7 +49,7 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
       description: 'User has added a friend',
       icon: 'GiFist',
       goal: 1,
-      progress: user.friends_list.length || 0,
+      progress: props.friends.length || 0,
     },
     {
       name: 'Competitor',

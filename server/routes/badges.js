@@ -1,5 +1,5 @@
 const express = require('express');
-const { User } = require('../db/index');
+const { User, Friends } = require('../db/index');
 
 const router = express.Router();
 
@@ -35,11 +35,16 @@ router.get('/badgeCheck', async (req, res) => {
   const { user } = req;
   const
     {
-      badges, saved_exercises, completedExercises, friends_list, meetups_list,
+      badges, 
+      saved_exercises, 
+      completedExercises, 
+      meetups_list,
     } = user;
   const badgeNames = badges.map((badge) => badge.name);
 
   try {
+    const friends_list = await Friends.find({googleId: req.user.googleId})
+
     // check if user has a new user badge
     if (!badgeNames.includes('New User')) {
       await addBadge(user, {
@@ -95,6 +100,7 @@ router.get('/badgeCheck', async (req, res) => {
     }
     res.sendStatus(200);
   } catch (err) {
+    console.error(`Error on badge check for user #${req.user.googleId}: `, err)
     res.sendStatus(500);
   }
 });
