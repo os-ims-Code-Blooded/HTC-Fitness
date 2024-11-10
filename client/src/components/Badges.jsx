@@ -115,7 +115,7 @@ const Badges = ({ user, fetchUser, switchIcon }) => {
         <Box width='48%'>
           <Typography variant="h6" align="left" paddingLeft='20px' mt={4}>Earned Badges {`(${user.badges.length}/${achievements.length})`}</Typography>
           <Divider width='100%' color='white' />
-          <Box display="flex" flexDirection="column" sx={{ height: '300px', overflowY: 'auto' }} >
+          <Box display="flex" flexDirection="column" sx={{ height: '600px', overflowY: 'auto' }} >
             {badges && badges.length > 0 ? (
               badges.map((badge, index) => (
                 <Box key={index} mb={1} textAlign="center" alignItems="left" justifyItems='left' justifyContent='left' alignContent='left'>
