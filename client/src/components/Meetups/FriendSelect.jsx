@@ -44,13 +44,27 @@ export default function FriendSelect(props) {
     );
     props.setSubmitAttendees(newAttendees);
   };
+  /// //////////////////////////////////////////////////
+  const selectRef = React.useRef(null);
+  /// ///////////////////////////////////////////////////////
+  React.useEffect(() => {
+    if (selectRef.current) {
+      const scrollbarWidth = getScrollbarWidth(selectRef.current);
+      // Use the scrollbar width as needed
+    }
+  }, [selectRef]);
 
+  function getScrollbarWidth(element) {
+    const scrollbarWidth = element.offsetWidth - element.clientWidth;
+    return scrollbarWidth;
+  }
   /// ///////////////////////////////////////////////////////////
   return (
     <Box sx={{ minWidth: 200, backgroundColor: 'grey' }}>
       <FormControl fullWidth>
         <InputLabel >Select Friends</InputLabel>
         <Select
+          ref={selectRef}
           onChange={handleChange}
           multiple
           value={props.attendees}
