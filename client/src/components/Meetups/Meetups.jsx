@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Select } from '@mui/material';
-
 // mui components
 import { Box } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -74,20 +72,7 @@ const Meetups = (props) => {
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
   };
-  /// //////////////////////////////////////////////////
-  const selectRef = React.useRef(null);
-  /// ///////////////////////////////////////////////////////
-  React.useEffect(() => {
-    if (selectRef.current) {
-      const scrollbarWidth = getScrollbarWidth(selectRef.current);
-      // Use the scrollbar width as needed
-    }
-  }, [selectRef]);
 
-  function getScrollbarWidth(element) {
-    const scrollbarWidth = element.offsetWidth - element.clientWidth;
-    return scrollbarWidth;
-  }
   /// ///////////////////////////////////////////////////
   return (
     <MeetBox sx={{ padding: '15px' }}>
@@ -120,7 +105,6 @@ const Meetups = (props) => {
         <div style={{ padding: '15px' }}></div>
         <>
       <FriendSelect
-      ref={selectRef}
       submitAttendees={submitAttendees}
       setSubmitAttendees={setSubmitAttendees}
       attendees={attendees}
