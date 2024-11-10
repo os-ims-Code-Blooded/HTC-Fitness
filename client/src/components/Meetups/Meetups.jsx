@@ -117,7 +117,7 @@ const Meetups = (props) => {
       setSubmitAttendees={setSubmitAttendees}
       attendees={attendees}
       setAttendees={setAttendees}
-      friends={props.user.friends_list}
+      friends={props.friends}
       sx={{ backgroundColor: 'grey' }}
       />
       <div style={{ padding: '15px' }}></div>

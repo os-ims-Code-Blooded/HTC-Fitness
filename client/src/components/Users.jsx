@@ -21,18 +21,14 @@ const SearchUsers = (props) => {
     axios.get('/api/users')
       .then((response) => {
 
-        // filter known friends to create an array of IDs
-        const friendIDs = props.user.friends_list.map((user) => {
-          return user.googleId;
+        // create an array of current friend IDs
+        const friendIDs = props.friends.map((friend) => {
+          return friend.googleId;
         })
 
+        // if current user does not exist in previous array, display them
         const filteredData = response.data.filter((user) => {
-          const alreadyFriend = friendIDs.includes(user.googleId);
-          const isSelf = (props.user.googleId === user.googleId);
-
-          if (!alreadyFriend && !isSelf){
-            return true;
-          }
+          return (!friendIDs.includes(user.googleId) && user.googleId !== props.user.googleId )
         })
 
         setUsers(filteredData);
@@ -43,24 +39,14 @@ const SearchUsers = (props) => {
   }, []);
 
   function addFriend(friend) {
-    const newFriend = {
-      googleId: friend.googleId,
-      nameFirst: friend.nameFirst,
-      nameLast: friend.nameLast,
-      email: friend.email,
-      goal_weight: friend.goal_weight,
-      num_exercises: friend.saved_exercises ? friend.saved_exercises.length : 0,
-      num_friends: friend.friends_list ? friend.friends_list.length : 0,
-    };
 
-    const existingFriends = props.user.friends_list.map((friend) => friend.googleId);
+    const existingFriends = props.friends.map((friend) => friend.googleId);
 
     if (existingFriends.includes(friend.googleId)) {
-      console.error(`Refused Request :: User #${friend.googleId} is already a friend of user #${props.user.googleId}.`);
       return;
     }
 
-    axios.post('/api/friends', { friend: newFriend })
+    axios.post('/api/friends', { friendId: friend.googleId })
       .then((response) => {
         props.fetchUser();
       })

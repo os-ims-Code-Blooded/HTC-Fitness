@@ -24,9 +24,6 @@ const MenuProps = {
 /// ////////////////////////////////////////////////////
 
 export default function FriendSelect(props) {
-  console.log('PROPS.FRIENDS', props.friends);
-  const friends = props.friends.map((friend) => friend);
-  // console.log('FRIENDS TO SELECT', friends);
 
   const handleChange = (event) => {
     const {
@@ -50,7 +47,7 @@ export default function FriendSelect(props) {
   /// ///////////////////////////////////////////////////////////
   return (
     <Box sx={{ minWidth: 200, backgroundColor: 'grey' }}>
-      <FormControl fullWidth>
+      <FormControl fullWidth >
         <InputLabel id="demo-simple-select-label">Select Friends</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -67,15 +64,12 @@ export default function FriendSelect(props) {
           MenuProps={MenuProps}
         >
         {
-          friends.map((friend, i) => (
-
+          props.friends.map((friend, i) => (
             <MenuItem key={i} value={`${friend.nameFirst} ${friend.nameLast}`}>
               <Checkbox checked={props.attendees.includes(`${friend.nameFirst} ${friend.nameLast}`)} />
               <ListItemText primary={`${friend.nameFirst} ${friend.nameLast}`}/>
             {/* {console.log('FRIEND', `${friend.nameFirst} ${friend.nameLast}`)} */}
-
             </MenuItem>
-
           ))
         }
         </Select>
