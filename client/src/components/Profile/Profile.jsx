@@ -28,7 +28,7 @@ const Profile = (props) => {
               <BasicProfileInfo user={props.user}/>
             </div>
             <div id="friendsDisplay" style={{ display: 'flex', maxWidth: 520 }}>
-              <ProfileFriends user={props.user} friends={props.friends} removeFriend={removeFriend} switchIcon={props.switchIcon}/>
+              <ProfileFriends user={props.user} friends={props.friends} removeFriend={removeFriend} switchIcon={props.switchIcon} fetchUser={props.fetchUser}/>
             </div>
           </div>
           : <div>
