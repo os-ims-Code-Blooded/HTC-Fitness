@@ -49,6 +49,7 @@ const SearchUsers = (props) => {
     axios.post('/api/friends', { friendId: friend.googleId })
       .then((response) => {
         props.fetchUser();
+        console.log(props.user);
       })
       .catch((error) => {
         console.error('Error on request searching users, adding new friend.');
@@ -115,8 +116,8 @@ const SearchUsers = (props) => {
                         {
                           `
                           Goal weight: ${user.goal_weight ? user.goal_weight : '---'} | 
-                          Exercises: ${user.num_exercises ? user.num_exercises : 0} | 
-                          Friends: ${user.num_friends ? user.num_friends : 0}
+                          Exercises: ${user.numOfSavedExercises ? user.numOfSavedExercises : 0} | 
+                          Friends: ${user.numOfFriends ? user.numOfFriends : 0}
                           `
                         }
                       </React.Fragment>

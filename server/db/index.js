@@ -62,6 +62,7 @@ const userSchema = new mongoose.Schema({
   saved_exercises: [SavedExerciseSchema],
   numOfSavedExercises: { type: Number, default: 0 },
   completedExercises: { type: Number, default: 0 },
+  numOfFriends: { type: Number, default: 0},
   meetups_list: Array
 });
 

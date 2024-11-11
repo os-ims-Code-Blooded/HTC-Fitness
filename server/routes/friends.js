@@ -17,38 +17,61 @@ router.get('/', (req, res) => {
 
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
 
-  const newFriend = {
-    googleId: req.user.googleId,
-    friendId: req.body.friendId
+  try{
+
+    const newFriend = {
+      googleId: req.user.googleId,
+      friendId: req.body.friendId
+    }
+  
+    await Friends.create(newFriend)
+
+    const userFound = await User.findOne({googleId: req.user.googleId})
+
+    if (userFound) {
+      userFound.numOfFriends++;
+      await userFound.save();
+      res.sendStatus(201);
+    } else {
+      res.sendStatus(404);
+    }
+
+  } catch(error) {    
+    console.error(`Error on create friend association for user #${req.user.googleId}.`)
+    res.sendStatus(500);
   }
 
-  Friends.create(newFriend)
-    .then(() => {
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.error(`Error on create friend association for user #${req.user.googleId}.`)
-      res.sendStatus(500);
-    })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   
-  const filter = {
-    googleId: req.user.googleId,
-    friendId: req.params.id
-  }
+  try {
 
-  Friends.findOneAndDelete(filter)
-    .then(() => {
+    const filter = {
+      googleId: req.user.googleId,
+      friendId: req.params.id
+    }
+  
+    await Friends.findOneAndDelete(filter)
+
+    const userFound = await User.findOne({googleId: req.user.googleId})
+
+    if (userFound) {
+      userFound.numOfFriends--;
+      await userFound.save();
       res.sendStatus(200);
-    })
-    .catch((error) => {
+    } else {
+      res.sendStatus(404);
+    }
+
+  } catch(error) {
+      
       console.error(`Error on remove friend association #${req.params.id} for user #${req.user.googleId}.`)
       res.sendStatus(500);      
-    })
+  }
+
 
 })
 
