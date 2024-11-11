@@ -40,8 +40,8 @@ const ProfileFriends = (props) => (
                       {
                         `
                         Goal weight: ${friend.goal_weight ? friend.goal_weight : '---'} | 
-                        Exercises: ${friend.num_exercises ? friend.num_exercises : 0} | 
-                        Friends: ${friend.num_friends ? friend.num_friends : 0}
+                        Exercises: ${friend.numOfSavedExercises ? friend.numOfSavedExercises : 0} | 
+                        Friends: ${friend.numOfFriends ? friend.numOfFriends : 0}
                         `
                       }
                     </React.Fragment>
