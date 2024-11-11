@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -10,16 +10,57 @@ import Typography from '@mui/material/Typography';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { GiFireSilhouette, GiFireDash, GiFireFlower } from 'react-icons/gi';
 import { SlFire } from 'react-icons/sl';
+import axios from 'axios';
 
-const ProfileFriends = (props) => (
+const ProfileFriends = (props) => {
+
+  const [localFriends, setLocalFriends] = useState([]);
+
+  const fetchFriends = () => {
+    axios.get(`/api/friends`)
+    .then((friendsList) => {
+
+      // makes an array of only friendIds
+      if (friendsList.data.length !== 0){
+        const friendIdList = friendsList.data.map((friend) => {
+          return friend.friendId;
+        })
+
+        axios.get(`/api/users`)
+          .then((allUsers) => {
+            setLocalFriends(
+              allUsers.data.filter((user) => {
+                return friendIdList.includes(user.googleId);
+              })
+            );
+          })
+          .catch((error) => {
+            console.error(`Error on request for all users during friends retrieval.`, error)
+          })
+      } else {
+        setFriends([]);
+      }
+
+    })
+    .catch((error) => {
+      console.error(`Error retrieving simple friends list.`, error)
+    })
+  }
+
+  useEffect(() => {
+    fetchFriends();
+    console.log(`fuck`)
+  }, [])
+
+  return (
     <div className="profileFriends" style={{ width: 480, paddingTop: '32px' }}>
       <span style={{ paddingBottom: '8px' }}>Your Friends</span>
-      { props.friends && props.friends.length > 0
+      { localFriends && localFriends.length > 0
         ? <List sx={{
           width: '100%', width: 480, bgcolor: '#1E1E1E', borderRadius: '4px',
         }}>
           {
-            props.friends.map((friend, index) => (
+            localFriends.map((friend, index) => (
               <div key={`${friend.googleId}-${index}`}>
               <ListItem alignItems="flex-start" key={friend.googleId}>
                 <ListItemAvatar>
@@ -60,6 +101,7 @@ const ProfileFriends = (props) => (
         </div>
       }
     </div>
-);
+  )
+};
 
 export default ProfileFriends;
