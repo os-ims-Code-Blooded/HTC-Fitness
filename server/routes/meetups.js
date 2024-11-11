@@ -18,20 +18,24 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const meetup = req.body;
 
-  // console.log('REQ BODY - meetup', meetup);
-  await User.findOneAndUpdate(
-    { googleId: req.user.googleId },
-    { $push: { meetups_list: meetup } },
-    { new: true },
-  );
-  await Meetups.create(meetup);
+  try {
+    await User.findOneAndUpdate(
+      { googleId: req.user.googleId },
+      { $push: { meetups_list: meetup } },
+      { new: true },
+    );
 
-  Meetups.find({})
-    .then((data) => data)
-    .catch((err) => console.error(err));
+    await Meetups.create(meetup);
+
+    res.sendStatus(200);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+
 });
+
 /// ///////////////////////////////////////////////////////////
-router.put('/delete', async (req, res) => {
+router.put('/delete', (req, res) => {
 
   Meetups.findByIdAndDelete(req.body)
     .then((data) => {
