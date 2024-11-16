@@ -1,6 +1,11 @@
-# HTC Fitness
 
-Hyperbolic Time Chamber Fitness is an application meant to help users find exercises that work for them and their body. HTC Fitness allows users to set and track goals while using their own custom routines to improve their health. The ultimate goal for HTC is for everyone who uses it, to create a healthier and happier life-style.
+# HTC-Fitness-Legacy
+  Hyperbolic Time Chamber Fitness is an application meant to help users find exercises that work for them and their body. HTC Fitness allows users to set and track goals while using their own custom routines to improve their health. The ultimate goal for HTC is for everyone who uses it, to create a healthier and happier life-style.
+
+  The legacy additions include a social networking system that allows users to connect with one-another, create meetups, and earn badge rewards for fitness achievements.
+
+# Node Version
+  Node version 22 is used for this repo.
 
 # Installation
 
@@ -121,8 +126,11 @@ Our database is built with MongoDB / Mongoose in the `server/db/index.js` file. 
   - Navigated pages do not render after the browser page refreshes. Comment from OS-IMS Code-Blooded (inheritors) this is most likely due to the fact that React Router is overlapping with endpoints provided in Express.
 
 # Contributors
-  - OS-IMS Team Code-Blooded: Benjamin Long [Github] (https://github.com/benlongcp)
-  - OS-IMS Team Code-Blooded: Jeremy Hernandez [Github] (https://github.com/jhernandez504)
-  - OS-IMS Team Code-Blooded: Justin Sandrock [Github] (https://github.com/sandrockjustin)
-  - OS-IMS Team Scrum Lords:  Adonijah Johnson Jr [Github](https://github.com/AJ-Gamer)
-  - OS-IMS Team Scrum Lords:  Dakota Day [Github](https://github.com/Mothroom)
+  - Adonijah Johnson Jr [Github](https://github.com/AJ-Gamer)
+  - Dakota Day [Github](https://github.com/Mothroom)
+  
+# Legacy Contributors
+  - Jeremy Hernandez [Github](https://github.com/jhernandez504)
+  - Ben Long [Github](https://github.com/benlongcp)
+  - Justin Sandrock [Github](https://github.com/sandrockjustin)
+

@@ -20,10 +20,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 const MeetupTable = ({ meetups, setMeetups, user }) => {
 /// ////////////////////////////////////////////////////////////////
-  // console.log('Table , ;
   const handleDelete = (e) => {
-    console.log('target meetup', meetups[e]);
-
     axios.put('/api/meetups/delete', meetups[e])
       .then((data) => console.log('PUT DATA', data))
       .catch((err) => {
@@ -34,15 +31,10 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
   /// ////////////////////////////////////////////////////////////
   const handleUpdate = (e) => {
     console.log('update');
-
-    // axios.put('api/meetups/edit', e)
-    //   .then()
-    //   .catch((err) => console.error(err));
   };
   /// ////////////////////////////////////////////////////////////////
   return (
     <TableContainer component={Paper}>
-          {/* {console.log("MEETUP TABLE MEETUPs", meetups)} */}
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
       <TableHead>
         <TableRow>
@@ -56,7 +48,6 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {console.log("MEETUPS", meetups)}
         {meetups.map((meetup, i) => (
 
           <TableRow key={meetup.meetupName + meetup.meetupDate} onClick={(e) => handleUpdate(e)}>
@@ -94,10 +85,13 @@ const MeetupTable = ({ meetups, setMeetups, user }) => {
 
               </TableCell>
 
-            <TableCell align="right">{`${user.nameFirst} ${user.nameLast}`}</TableCell>
+            <TableCell align="right">{
+
+            `${user.nameFirst} ${user.nameLast}`
+            }</TableCell>
 
             <TableCell align="right">
-
+              {console.log("MEETUPS", meetups)}
               {
               meetup.attendees.map((attendee, ind, array) => (
                       <p key={`${attendee.googleId}${array.meetupName}${ind}`}>{`${attendee.nameFirst} ${attendee.nameLast}`}</p>
